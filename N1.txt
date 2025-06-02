@@ -1,0 +1,60 @@
+package Login;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AmazonLocatorsExample {
+    public static void main(String[] args) {
+
+        // Set path to your ChromeDriver
+    	System.setProperty("webdriver.chrome.driver","C:/Users/gunda.phaninder/Downloads/Softwares/Drivers/chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+
+        // Maximize browser window
+        driver.manage().window().maximize();
+
+        // Navigate to Amazon
+        driver.get("https://www.amazon.com/");
+
+        try {
+            // Search input field (By ID)
+            WebElement searchField = driver.findElement(By.id("twotabsearchtextbox"));
+            searchField.sendKeys("laptop");
+
+            // Search button (By ID)
+            WebElement searchButton = driver.findElement(By.id("nav-search-submit-button"));
+            searchButton.click();
+
+            Thread.sleep(3000); // wait for results to load
+
+            // First product image (By XPath)
+            WebElement firstProductImage = driver.findElement(By.xpath("//div[@data-index='1']//img"));
+            System.out.println("First product image found: " + firstProductImage.getAttribute("src"));
+
+            // First product title (By XPath)
+            WebElement productTitle = driver.findElement(By.xpath("//div[@data-index='1']//h2/a/span"));
+            System.out.println("Product title: " + productTitle.getText());
+
+            // "Today's Deals" link (By LinkText)
+            WebElement todaysDeals = driver.findElement(By.linkText("Today's Deals"));
+            todaysDeals.click();
+
+            Thread.sleep(3000); // allow deals page to load
+
+            // Scroll down and find "Careers" link (By LinkText)
+            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+            Thread.sleep(3000);
+            WebElement careersLink = driver.findElement(By.linkText("Careers"));
+            System.out.println("Footer link 'Careers' href: " + careersLink.getAttribute("href"));
+
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+    }
+}
