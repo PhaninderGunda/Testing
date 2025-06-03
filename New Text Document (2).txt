@@ -1,0 +1,30 @@
+package WebSel;
+ 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+ 
+public class LocatorsWeb {
+ 
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","C:/Users/gunda.phaninder/Downloads/Softwares/Drivers/chromedriver.exe");
+ 
+ 
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://petstore.octoperf.com/");
+		driver.findElement(By.partialLinkText("Enter")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.linkText("Sign In")).click();
+		driver.findElement(By.xpath("//input[@name='username']")).sendKeys("PhaninderGunda");
+		Thread.sleep(1000);
+		driver.findElement(By.name("password")).clear(); 
+		driver.findElement(By.name("password")).sendKeys("Gunda1234");
+		Thread.sleep(1000);
+		driver.findElement(By.name("signon")).click();
+   
+ 
+	}
+ 
+}
